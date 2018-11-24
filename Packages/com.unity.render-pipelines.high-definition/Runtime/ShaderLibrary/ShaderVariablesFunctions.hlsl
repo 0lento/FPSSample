@@ -57,6 +57,13 @@ float3 GetViewForwardDir()
     return -viewMat[2].xyz;
 }
 
+// Returns the forward (up) direction of the current view in the world space.
+float3 GetViewUpDir()
+{
+    float4x4 viewMat = GetWorldToViewMatrix();
+    return viewMat[1].xyz;
+}
+
 // Returns 'true' if the current view performs a perspective projection.
 bool IsPerspectiveProjection()
 {
@@ -123,14 +130,14 @@ float2 GetViewportScalePreviousFrame()
     return _ScreenToTargetScale.zw;
 }
 
-float4 SampleSkyTexture(float3 texCoord)
+float4 SampleSkyTexture(float3 texCoord, int sliceIndex)
 {
-    return SAMPLE_TEXTURECUBE(_SkyTexture, s_trilinear_clamp_sampler, texCoord);
+    return SAMPLE_TEXTURECUBE_ARRAY(_SkyTexture, s_trilinear_clamp_sampler, texCoord, sliceIndex);
 }
 
-float4 SampleSkyTexture(float3 texCoord, float lod)
+float4 SampleSkyTexture(float3 texCoord, float lod, int sliceIndex)
 {
-    return SAMPLE_TEXTURECUBE_LOD(_SkyTexture, s_trilinear_clamp_sampler, texCoord, lod);
+    return SAMPLE_TEXTURECUBE_ARRAY_LOD(_SkyTexture, s_trilinear_clamp_sampler, texCoord, sliceIndex, lod);
 }
 
 float2 TexCoordStereoOffset(float2 texCoord)

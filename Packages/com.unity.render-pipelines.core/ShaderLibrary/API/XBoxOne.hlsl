@@ -1,5 +1,19 @@
-// This file assume SHADER_API_D3D11 is defined
-// TODO: This is a straight copy from D3D11.hlsl. Go through all this stuff and adjust where needed.
+// This file assume SHADER_API_XBOXONE is defined
+
+#define GENERATE_INTRINSIC_VARIANTS_1_ARG(FunctionName, BaseIntrinsicName, Parameter0) \
+    float FunctionName(float Parameter0) { return BaseIntrinsicName##F32(Parameter0); } \
+    int   FunctionName(int   Parameter0) { return BaseIntrinsicName##I32(Parameter0); } \
+    uint  FunctionName(uint  Parameter0) { return BaseIntrinsicName##U32(Parameter0); }
+
+#define GENERATE_INTRINSIC_VARIANTS_3_ARGS(FunctionName, BaseIntrinsicName, Parameter0, Parameter1, Parameter2) \
+    float FunctionName(float Parameter0, float Parameter1, float Parameter2) { return BaseIntrinsicName##F32(Parameter0, Parameter1, Parameter2); } \
+    int   FunctionName(int   Parameter0, int   Parameter1, int   Parameter2) { return BaseIntrinsicName##I32(Parameter0, Parameter1, Parameter2); } \
+    uint  FunctionName(uint  Parameter0, uint  Parameter1, uint  Parameter2) { return BaseIntrinsicName##U32(Parameter0, Parameter1, Parameter2); }
+
+#define GENERATE_INTRINSIC_INT24_VARIANTS_3_ARGS(FunctionName, BaseIntrinsicName, Parameter0, Parameter1, Parameter2) \
+    int   FunctionName(int   Parameter0, int   Parameter1, int   Parameter2) { return BaseIntrinsicName##I24(Parameter0, Parameter1, Parameter2); } \
+    uint  FunctionName(uint  Parameter0, uint  Parameter1, uint  Parameter2) { return BaseIntrinsicName##U24(Parameter0, Parameter1, Parameter2); } 
+
 
 #define UNITY_UV_STARTS_AT_TOP 1
 #define UNITY_REVERSED_Z 1
@@ -14,6 +28,64 @@
 
 #define CBUFFER_START(name) cbuffer name {
 #define CBUFFER_END };
+
+#define PLATFORM_SUPPORTS_EXPLICIT_BINDING 1
+#define PLATFORM_NEEDS_UNORM_UAV_SPECIFIER 1
+
+// Intrinsics
+#define SUPPORTS_WAVE_INTRINSICS
+
+#define INTRINSIC_WAVEREADFIRSTLANE
+#define WaveReadLaneFirst __XB_MakeUniform
+#define INTRINSIC_BITFIELD_INSERT
+#define BitFieldInsert __XB_BFI
+#define INTRINSIC_BALLOT
+#define WaveActiveBallot __XB_Ballot64
+#define INTRINSIC_WAVE_LOGICAL_OPS
+#define WaveActiveBitAnd __XB_WaveAND
+#define WaveActiveBitOr __XB_WaveOR
+
+
+#define INTRINSIC_BITFIELD_EXTRACT
+uint BitFieldExtract(uint data, uint offset, uint numBits)
+{
+    return __XB_UBFE(numBits, offset, data);
+}
+
+#define INTRINSIC_BITFIELD_EXTRACT_SIGN_EXTEND
+int BitFieldExtractSignExtend(uint data, uint offset, uint numBits)
+{
+    return __XB_IBFE(numBits, offset, data);
+}
+
+#define INTRINSIC_WAVE_ACTIVE_ALL_ANY
+bool WaveActiveAllTrue(bool expression)
+{
+    return all(WaveActiveBallot(true) == WaveActiveBallot(expression));
+}
+
+bool WaveActiveAnyTrue(bool expression)
+{
+    return (__XB_S_BCNT1_U64(WaveActiveBallot(expression))) != 0;
+}
+
+
+#define INTRINSIC_MINMAX3
+GENERATE_INTRINSIC_VARIANTS_3_ARGS(Min3, __XB_Min3_, a, b, c);
+GENERATE_INTRINSIC_VARIANTS_3_ARGS(Max3, __XB_Max3_, a, b, c);
+
+#define INTRINSIC_WAVE_MINMAX
+GENERATE_INTRINSIC_VARIANTS_1_ARG(WaveActiveMin, __XB_WaveMin_, value);
+GENERATE_INTRINSIC_VARIANTS_1_ARG(WaveActiveMax, __XB_WaveMax_, value);
+
+#define INTRINSIC_MAD24
+GENERATE_INTRINSIC_INT24_VARIANTS_3_ARGS(Mad24, __XB_Mad, a, b, c);
+
+#define INTRINSIC_WAVE_SUM
+float WaveActiveSum(float value)
+{
+    return __XB_WaveAdd_F32(value);
+}
 
 // flow control attributes
 #define UNITY_BRANCH        [branch]
