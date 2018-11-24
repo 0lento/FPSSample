@@ -65,9 +65,9 @@ public class HandleCharacterSpawnRequests : BaseComponentSystem
         m_isServer = isServer;
     }
     
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         SpawnGroup = GetComponentGroup(typeof(CharacterSpawnRequest));
     }
 
@@ -198,9 +198,9 @@ public class HandleCharacterDespawnRequests : BaseComponentSystem
     public HandleCharacterDespawnRequests(GameWorld world) : base(world)
     {}
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         DespawnGroup = GetComponentGroup(typeof(CharacterDespawnRequest));
         ItemGroup = GetComponentGroup(typeof(CharacterItem));
     }
@@ -354,9 +354,9 @@ public class UpdateCharPresentationState : BaseComponentSystem
     public UpdateCharPresentationState(GameWorld gameWorld) : base(gameWorld)
     {}
     
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         Group = GetComponentGroup(typeof(ServerEntity), typeof(CharacterPredictedState), typeof(CharAnimState),
             typeof(UserCommandComponent), typeof(AnimStateController));
     }
@@ -425,9 +425,9 @@ public class GroundTest : BaseComponentSystem
         m_mask = 1 << m_defaultLayer | 1 << m_playerLayer | 1 << m_platformLayer;
     }
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         Group = GetComponentGroup(typeof(ServerEntity), typeof(CharacterPredictedState));
     }
 
@@ -496,9 +496,9 @@ public class ApplyPresentationStateToCharacters : BaseComponentSystem
     public ApplyPresentationStateToCharacters(GameWorld world) : base(world)
     {}
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         CharGroup = GetComponentGroup(typeof(AnimStateController), typeof(CharAnimState), typeof(Character));
         Char1PGroup = GetComponentGroup(typeof(AnimStateController), typeof(Character1P));
     }

@@ -153,9 +153,9 @@ class ClientFrontendUpdate : BaseComponentSystem
     {
     }
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         m_gameModeGroup = GetComponentGroup(typeof(GameMode));
         m_localPlayerGroup = GetComponentGroup(typeof(LocalPlayer));
     }

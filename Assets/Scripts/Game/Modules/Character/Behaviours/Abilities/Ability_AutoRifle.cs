@@ -334,11 +334,11 @@ class AutoRifle_Update : BaseComponentDataSystem<AbilityControl,Ability_AutoRifl
 
 			var cross = math.cross(new float3(0, 1, 0),aimDir);
 			var cofAngle = math.radians(predictedState.COF)*0.5f;
-			var direction = math.mul(quaternion.axisAngle(cross, cofAngle), aimDir);
+			var direction = math.mul(quaternion.AxisAngle(cross, cofAngle), aimDir);
 
 			// TODO use tick as random seed so server and client calculates same angle for given tick  
 			var rndAngle = UnityEngine.Random.Range(0, (float) math.PI * 2);
-			var rndRot = quaternion.axisAngle(aimDir, rndAngle);
+			var rndRot = quaternion.AxisAngle(aimDir, rndAngle);
 			direction = math.mul(rndRot, direction);
 
 			predictedState.COF  += settings.shotCOFIncrease;

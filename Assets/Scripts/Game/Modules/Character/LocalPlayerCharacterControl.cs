@@ -55,9 +55,9 @@ public class UpdateCharacter1PSpawn : BaseComponentSystem
         m_ResourceManager = resourceManager;
     }
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         Group = GetComponentGroup(typeof(LocalPlayer), typeof(LocalPlayerCharacterControl));
         ItemGroup = GetComponentGroup(typeof(CharacterItem));
     }

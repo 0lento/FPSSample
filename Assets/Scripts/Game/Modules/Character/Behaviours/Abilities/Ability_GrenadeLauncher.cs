@@ -198,7 +198,7 @@ class GrenadeLauncher_Update : BaseComponentDataSystem<AbilityControl,Ability_Gr
                         
                         var startDir = command.lookDir;
                         var right = math.cross(new float3(0, 1, 0),startDir);
-                        var pitchRot = quaternion.axisAngle(right,
+                        var pitchRot = quaternion.AxisAngle(right,
                             -math.radians(settings.grenadePitchAngle));
                         startDir = math.mul(pitchRot, startDir);
                             

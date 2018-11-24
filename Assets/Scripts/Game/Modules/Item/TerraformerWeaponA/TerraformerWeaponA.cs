@@ -206,9 +206,9 @@ public class TerraformerWeaponClientProjectileSpawnHandler : InitializeComponent
     public TerraformerWeaponClientProjectileSpawnHandler(GameWorld world) : base(world)
     {}
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         WeaponGroup = GetComponentGroup(typeof(TerraformerWeaponA), typeof(CharacterItem));
     }
 

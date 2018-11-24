@@ -176,9 +176,9 @@ public class AbilityCtrl_Update : BaseComponentSystem
     
     public AbilityCtrl_Update(GameWorld world) : base(world) {}
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         Group = GetComponentGroup(typeof(ServerEntity), typeof(AbilityController));
     }
 

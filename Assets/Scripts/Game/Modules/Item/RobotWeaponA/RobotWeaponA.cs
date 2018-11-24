@@ -152,9 +152,9 @@ public class RobotWeaponClientProjectileSpawnHandler : InitializeComponentGroupS
     public RobotWeaponClientProjectileSpawnHandler(GameWorld world) : base(world)
     {}
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         WeaponGroup = GetComponentGroup(typeof(RobotWeaponA), typeof(CharacterItem));
     }
 

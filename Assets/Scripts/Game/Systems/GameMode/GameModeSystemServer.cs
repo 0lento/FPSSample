@@ -110,9 +110,9 @@ public class GameModeSystemServer : ComponentSystem
         m_World.RequestDespawn(gameModeState.gameObject);
     }
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         playersComponentGroup = GetComponentGroup(typeof(PlayerState));
         m_TeamBaseComponentGroup = GetComponentGroup(typeof(TeamBase));
         m_SpawnPointComponentGroup = GetComponentGroup(typeof(SpawnPoint));

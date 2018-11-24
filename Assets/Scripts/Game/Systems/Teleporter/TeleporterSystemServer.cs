@@ -9,9 +9,9 @@ public class TeleporterSystemServer : ComponentSystem
         m_GameWorld = gameWorld;
     }
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         m_TeleporterServerGroup = GetComponentGroup(typeof(TeleporterServer));
     }
 
