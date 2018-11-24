@@ -6,7 +6,7 @@ using UnityEngine;
 namespace UnityEditor.ShaderGraph
 {
     [Serializable]
-    public class TextureShaderProperty : AbstractShaderProperty<SerializableTexture>
+    class TextureShaderProperty : AbstractShaderProperty<SerializableTexture>
     {
         public enum DefaultType
         {
@@ -45,6 +45,11 @@ namespace UnityEditor.ShaderGraph
         public override Vector4 defaultValue
         {
             get { return new Vector4(); }
+        }
+
+        public override bool isBatchable
+        {
+            get { return false; }
         }
 
         public override string GetPropertyBlockString()

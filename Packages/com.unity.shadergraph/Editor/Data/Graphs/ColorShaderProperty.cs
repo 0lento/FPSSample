@@ -6,7 +6,7 @@ using UnityEngine;
 namespace UnityEditor.ShaderGraph
 {
     [Serializable]
-    public class ColorShaderProperty : AbstractShaderProperty<Color>
+    class ColorShaderProperty : AbstractShaderProperty<Color>
     {
         [SerializeField]
         private ColorMode m_ColorMode;
@@ -45,6 +45,11 @@ namespace UnityEditor.ShaderGraph
         public override Vector4 defaultValue
         {
             get { return new Vector4(value.r, value.g, value.b, value.a); }
+        }
+
+        public override bool isBatchable
+        {
+            get { return true; }
         }
 
         public override string GetPropertyBlockString()

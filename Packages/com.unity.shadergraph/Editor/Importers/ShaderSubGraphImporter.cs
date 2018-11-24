@@ -6,8 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-[ScriptedImporter(2, Extension)]
-public class ShaderSubGraphImporter : ScriptedImporter
+[ScriptedImporter(3, Extension)]
+class ShaderSubGraphImporter : ScriptedImporter
 {
     public const string Extension = "shadersubgraph";
 

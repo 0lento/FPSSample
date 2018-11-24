@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -153,7 +154,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
                         EditorGUILayout.EnumPopup(field.content, (Enum)field.defaultValue);
                         break;
                     case SerializedPropertyType.LayerMask:
-                        EditorGUILayout.MaskField(field.content, (LayerMask)field.defaultValue, GraphicsSettings.renderPipelineAsset.GetRenderingLayerMaskNames());
+                        EditorGUILayout.MaskField(field.content, (LayerMask)field.defaultValue, GraphicsSettings.renderPipelineAsset.renderingLayerMaskNames);
                         break;
                     case SerializedPropertyType.ObjectReference:
                         EditorGUILayout.ObjectField(field.content, (UnityEngine.Object)field.defaultValue, field.defaultValue.GetType(), true);

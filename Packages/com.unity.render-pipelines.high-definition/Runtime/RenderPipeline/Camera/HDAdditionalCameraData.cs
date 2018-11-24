@@ -1,6 +1,7 @@
 using System;
 using UnityEngine.Serialization;
 using UnityEngine.Assertions;
+using UnityEngine.Rendering;
 
 namespace UnityEngine.Experimental.Rendering.HDPipeline
 {
@@ -77,6 +78,11 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         // This is the purpose of this class
         bool m_IsDebugRegistered = false;
         int m_CameraInstanceId = 0;
+
+        public bool IsDebugRegistred()
+        {
+            return m_IsDebugRegistered;
+        }
 
         // When we are a preview, there is no way inside Unity to make a distinction between camera preview and material preview.
         // This property allow to say that we are an editor camera preview when the type is preview.
@@ -157,6 +163,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
                 if (m_camera.cameraType != CameraType.Preview && m_camera.cameraType != CameraType.Reflection)
                 {
                     FrameSettings.RegisterDebug(m_camera.name, GetFrameSettings());
+                    DebugDisplaySettings.RegisterCamera(m_camera.name);
                 }
                 m_CameraInstanceId = m_camera.GetInstanceID();
                 m_IsDebugRegistered = true;
@@ -173,6 +180,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
                 if (m_camera.cameraType != CameraType.Preview && m_camera.cameraType != CameraType.Reflection)
                 {
                     FrameSettings.UnRegisterDebug(m_camera.name);
+                    DebugDisplaySettings.UnRegisterCamera(m_camera.name);
                 }
                 m_IsDebugRegistered = false;
             }

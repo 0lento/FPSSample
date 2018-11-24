@@ -115,6 +115,13 @@ namespace UnityEngine.Experimental.Rendering
         {
             public GUIContent[] enumNames;
             public int[] enumValues;
+            public int[] quickSeparators;
+            public int[] indexes;
+            
+            public Func<int> getIndex { get; set; }
+            public Action<int> setIndex { get; set; }
+
+            public int currentIndex { get { return getIndex(); } set { setIndex(value); } }
 
             public Type autoEnum
             {
@@ -129,7 +136,71 @@ namespace UnityEngine.Experimental.Rendering
                     enumValues = new int[values.Length];
                     for (int i = 0; i < values.Length; i++)
                         enumValues[i] = (int)values.GetValue(i);
+
+                    InitIndexes();
+                    InitQuickSeparators();
                 }
+            }
+
+            public void InitQuickSeparators()
+            {
+                var enumNamesPrefix = enumNames.Select(x =>
+                {
+                    string[] splitted = x.text.Split('/');
+                    if (splitted.Length == 1)
+                        return "";
+                    else
+                        return splitted[0];
+                });
+                quickSeparators = new int[enumNamesPrefix.Distinct().Count()];
+                string lastPrefix = null;
+                for (int i = 0, wholeNameIndex = 0; i < quickSeparators.Length; ++i)
+                {
+                    var currentTestedPrefix = enumNamesPrefix.ElementAt(wholeNameIndex);
+                    while (lastPrefix == currentTestedPrefix)
+                    {
+                        currentTestedPrefix = enumNamesPrefix.ElementAt(++wholeNameIndex);
+                    }
+                    lastPrefix = currentTestedPrefix;
+                    quickSeparators[i] = wholeNameIndex++;
+                }
+            }
+            
+            public void InitIndexes()
+            {
+                indexes = new int[enumNames.Length];
+                for (int i = 0; i < enumNames.Length; i++)
+                {
+                    indexes[i] = i;
+                }
+            }
+        }
+
+        public class BitField : Field<Enum>
+        {
+            public GUIContent[] enumNames { get; private set; }
+            public int[] enumValues { get; private set; }
+
+            internal Type m_EnumType;
+
+            public Type enumType
+            {
+                set
+                {
+                    enumNames = Enum.GetNames(value).Select(x => new GUIContent(x)).ToArray();
+
+                    // Linq.Cast<T> on a typeless Array breaks the JIT on PS4/Mono so we have to do it manually
+                    //enumValues = Enum.GetValues(value).Cast<int>().ToArray();
+
+                    var values = Enum.GetValues(value);
+                    enumValues = new int[values.Length];
+                    for (int i = 0; i < values.Length; i++)
+                        enumValues[i] = (int)values.GetValue(i);
+
+                    m_EnumType = value;
+                }
+
+                get { return m_EnumType; }
             }
         }
 
