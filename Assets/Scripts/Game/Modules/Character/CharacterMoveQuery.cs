@@ -62,7 +62,7 @@ class HandleMovementQueries : BaseComponentSystem
 	
     public HandleMovementQueries(GameWorld world) : base(world) {}
 	
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
         Group = GetComponentGroup(typeof(CharacterMoveQuery));
     }

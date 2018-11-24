@@ -7,9 +7,9 @@ public class ResolvePlayerReference : BaseComponentSystem
     
     public ResolvePlayerReference(GameWorld world) : base(world) {}
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         Group = GetComponentGroup(typeof(PlayerState));
     }
 

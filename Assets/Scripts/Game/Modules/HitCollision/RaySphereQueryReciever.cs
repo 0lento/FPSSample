@@ -67,10 +67,10 @@ public class RaySphereQueryReciever : BaseComponentSystem
 		m_environmentMask = 1 << m_defaultLayer | 1 << m_detailLayer | 1 << m_teamAreaALayer | 1 << m_teamAreaBLayer;
 	}
 	
-	protected override void OnCreateManager(int capacity)
+	protected override void OnCreateManager()
 	{
 		m_colliderGroup = GetComponentGroup(typeof(HitCollisionHistory));
-		base.OnCreateManager(capacity);
+		base.OnCreateManager();
 	}
 
 	public int RegisterQuery(Query query)

@@ -47,9 +47,9 @@ public class HandleClientProjectileRequests : BaseComponentSystem
         m_clientProjectileFactory = clientProjectileFactory;
     }
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         RequestGroup = GetComponentGroup(typeof(ProjectileRequest));
     }
 
@@ -222,9 +222,9 @@ public class HandleProjectileSpawn : BaseComponentSystem
         m_clientProjectileFactory = projectileFactory;
     }
     
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
 
         
         PredictedProjectileGroup = GetComponentGroup(typeof(ProjectileData), typeof(PredictedProjectile), ComponentType.Subtractive<DespawningEntity>());
@@ -345,9 +345,9 @@ public class RemoveMispredictedProjectiles : BaseComponentSystem
         base(world)
     {}
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         PredictedProjectileGroup = GetComponentGroup(typeof(PredictedProjectile), ComponentType.Subtractive<DespawningEntity>());
     }
 
@@ -389,9 +389,9 @@ public class DespawnClientProjectiles : BaseComponentSystem
         m_clientProjectileFactory = clientProjectileFactory;
     }
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
 
         DespawningClientProjectileOwnerGroup = GetComponentGroup(typeof(ClientProjectileOwner), typeof(DespawningEntity));
     }

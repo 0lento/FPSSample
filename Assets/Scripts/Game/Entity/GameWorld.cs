@@ -14,9 +14,9 @@ public class DestroyDespawning : ComponentSystem
 {
     ComponentGroup Group;
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         Group = GetComponentGroup(typeof(DespawningEntity));
     }
     

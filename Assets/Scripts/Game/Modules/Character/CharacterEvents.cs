@@ -85,9 +85,9 @@ public class HandleCharacterEvents : ComponentSystem
 {
 	ComponentGroup Group;
 
-	protected override void OnCreateManager(int capacity)
+	protected override void OnCreateManager()
 	{
-		base.OnCreateManager(capacity);
+		base.OnCreateManager();
 		Group = GetComponentGroup(typeof(CharacterEvents), typeof(CharAnimState));
 	}
 

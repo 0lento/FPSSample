@@ -73,9 +73,9 @@ public class ReplicatedAbilityRollback : ComponentSystem
     public ReplicatedAbilityRollback(GameWorld world)
     {}
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         Group = GetComponentGroup(typeof(ServerEntity), typeof(ReplicatedAbility));
     }
 
@@ -99,9 +99,9 @@ public class ReplicatedAbilityInterpolate : ComponentSystem
         m_world = world;
     }
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         Group = GetComponentGroup(typeof(ReplicatedAbility));
     }
 

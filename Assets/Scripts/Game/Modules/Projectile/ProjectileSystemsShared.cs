@@ -11,9 +11,9 @@ public class CreateProjectileMovementCollisionQueries : BaseComponentSystem
 
     public CreateProjectileMovementCollisionQueries(GameWorld world) : base(world) { }
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         ProjectileGroup = GetComponentGroup(typeof(ServerEntity), typeof(ProjectileData));
     }
 
@@ -69,9 +69,9 @@ public class HandleProjectileMovementCollisionQuery : BaseComponentSystem
 
     public HandleProjectileMovementCollisionQuery(GameWorld world) : base(world) { }
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         ProjectileGroup = GetComponentGroup(typeof(ServerEntity), typeof(ProjectileData));
     }
     
@@ -152,9 +152,9 @@ public class DespawnProjectiles : BaseComponentSystem
 
     public DespawnProjectiles(GameWorld world) : base(world) { }
 
-    protected override void OnCreateManager(int capacity)
+    protected override void OnCreateManager()
     {
-        base.OnCreateManager(capacity);
+        base.OnCreateManager();
         ProjectileGroup = GetComponentGroup(typeof(ProjectileData));
     }
     
