@@ -326,7 +326,7 @@ public class Game : MonoBehaviour
             DontDestroyOnLoad(m_DebugOverlay);
             m_DebugOverlay.Init();
 
-            var hdpipe = RenderPipelineManager.currentPipeline as HDRenderPipeline;
+            var hdpipe = UnityEngine.Rendering.RenderPipelineManager.currentPipeline as HDRenderPipeline;
             if (hdpipe != null)
             {
                 hdpipe.DebugLayer2DCallback = DebugOverlay.Render;
@@ -504,7 +504,7 @@ public class Game : MonoBehaviour
         // TODO (petera) remove this hack once we know exactly when renderer is available...
         if (!pipeSetup)
         {
-            var hdpipe = RenderPipelineManager.currentPipeline as HDRenderPipeline;
+            var hdpipe = UnityEngine.Rendering.RenderPipelineManager.currentPipeline as HDRenderPipeline;
             if (hdpipe != null)
             {
                 hdpipe.DebugLayer2DCallback = DebugOverlay.Render;
